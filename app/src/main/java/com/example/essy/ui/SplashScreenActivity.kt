@@ -25,7 +25,7 @@ class SplashScreenActivity : AppCompatActivity() {
         backgroundImage.startAnimation(sideAnimation)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, OnBoardingActivity::class.java))
             finish()
         }, 3000)
 
