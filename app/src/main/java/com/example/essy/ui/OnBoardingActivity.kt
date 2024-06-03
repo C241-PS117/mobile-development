@@ -1,5 +1,6 @@
 package com.example.essy.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,6 +29,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -167,9 +169,11 @@ fun GetStartedScreen() {
 
             /// show only in last page
             if (selectedPage == listData.size - 1) {
+                val context = LocalContext.current
                 Button(
                     onClick = {
-
+                        val intent = Intent(context, LoginActivity::class.java)
+                        context.startActivity(intent)
                     },
                     modifier = Modifier
                         .padding(16.dp)
