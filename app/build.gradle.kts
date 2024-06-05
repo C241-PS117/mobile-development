@@ -74,4 +74,11 @@ dependencies {
     // Accompanist Pager for page view
     implementation ("com.google.accompanist:accompanist-pager:0.24.0-alpha")
 
+    //nav controller
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.4.0-alpha10")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.4.0-alpha10")
+
+    //material design
+    implementation ("com.google.android.material:material:1.12.0")
+
 }
