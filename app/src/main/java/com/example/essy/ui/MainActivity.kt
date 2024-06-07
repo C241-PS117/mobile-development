@@ -3,8 +3,11 @@ package com.example.essy.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.example.essy.R
 import com.example.essy.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,29 +17,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set the initial fragment
-        replaceFragment(HomeFragment())
+        val homeFragment = HomeFragment()
+        val profileFragment = ProfileFragment()
+        makeCurrentFragment(homeFragment)
 
-        binding.navView.menu.getItem(1).isEnabled = false
-        binding.navView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    replaceFragment(HomeFragment())
-                    true
-                }
-                R.id.nav_profile -> {
-                    replaceFragment(ProfileFragment())
-                    true
-                }
-                else -> false
+        binding.bottomNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> makeCurrentFragment(homeFragment)
+                R.id.nav_profile -> makeCurrentFragment(profileFragment)
             }
+            true
         }
+
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.navHost, fragment)
-        fragmentTransaction.commit()
-    }
+    private fun makeCurrentFragment(fragment: Fragment) =
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frameLayout, fragment)
+            commit()
+        }
 }

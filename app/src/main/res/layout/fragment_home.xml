@@ -3,13 +3,229 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.HomeFragment"
+    android:background="@drawable/blur_bg">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home"
-        android:gravity="center"
-        />
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="33dp"
+       android:layout_marginBottom="20dp"
+       android:layout_marginStart="25dp"
+       android:layout_marginEnd="25dp"
+       >
+
+       <TextView
+           android:id="@+id/hometext1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Selamat Datang di"
+           android:fontFamily="@font/poppinsregular"
+           android:textSize="15sp"
+           android:textColor="@color/black"
+           />
+       <TextView
+           android:id="@+id/hometext2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="ESSY"
+           android:layout_below="@+id/hometext1"
+           android:fontFamily="@font/poppinsbold"
+           android:textSize="20sp"
+           android:textColor="@color/black"
+           android:layout_marginTop="-10dp"
+           />
+
+       <de.hdodenhof.circleimageview.CircleImageView
+           xmlns:app="http://schemas.android.com/apk/res-auto"
+           android:id="@+id/circle_profile"
+           android:layout_width="46dp"
+           android:layout_height="46dp"
+           android:src="@color/black"
+           android:layout_alignParentEnd="true"
+           app:civ_border_width="2dp"
+           app:civ_border_color="@color/white"
+           />
+
+       <LinearLayout
+           android:id="@+id/layoutCard1"
+           android:layout_width="164dp"
+           android:layout_height="135dp"
+           android:layout_marginTop="32dp"
+           android:layout_below="@id/hometext2"
+           android:orientation="vertical"
+           android:background="@drawable/shape_rounded_10"
+           android:backgroundTint="@color/white"
+           >
+
+           <ImageView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:src="@drawable/icon_list_soal"
+               android:layout_marginTop="15dp"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/hometext3"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Kata Kunci"
+               android:fontFamily="@font/poppinsmedium"
+               android:textSize="12sp"
+               android:textColor="@color/black"
+               android:layout_marginTop="14dp"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/hometext4"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Soal"
+               android:layout_marginTop="-8dp"
+               android:fontFamily="@font/poppinsmedium"
+               android:textSize="12sp"
+               android:textColor="@color/black"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/countKeyword"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="10"
+               android:fontFamily="@font/poppinsbold"
+               android:textSize="20sp"
+               android:textColor="@color/black"
+               android:layout_marginStart="15dp"
+               />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:id="@+id/layoutCard2"
+           android:layout_width="164dp"
+           android:layout_height="135dp"
+           android:layout_marginTop="32dp"
+           android:layout_below="@id/hometext2"
+           android:orientation="vertical"
+           android:background="@drawable/shape_rounded_10"
+           android:backgroundTint="@color/white"
+           android:layout_toRightOf="@id/layoutCard1"
+           android:layout_marginStart="15dp"
+           >
+
+           <ImageView
+               android:layout_width="25dp"
+               android:layout_height="25dp"
+               android:src="@drawable/icon_list_jawaban"
+               android:layout_marginTop="15dp"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/hometext5"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Riwayat Scan"
+               android:fontFamily="@font/poppinsmedium"
+               android:textSize="12sp"
+               android:textColor="@color/black"
+               android:layout_marginTop="14dp"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/hometext6"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Jawaban"
+               android:layout_marginTop="-8dp"
+               android:fontFamily="@font/poppinsmedium"
+               android:textSize="12sp"
+               android:textColor="@color/black"
+               android:layout_marginStart="15dp"
+               />
+           <TextView
+               android:id="@+id/countScan"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="20"
+               android:fontFamily="@font/poppinsbold"
+               android:textSize="20sp"
+               android:textColor="@color/black"
+               android:layout_marginStart="15dp"
+               />
+
+       </LinearLayout>
+
+       <TextView
+           android:id="@+id/hometext7"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/layoutCard1"
+           android:text="Riwayat Scan"
+           android:fontFamily="@font/poppinsbold"
+           android:textSize="15sp"
+           android:textColor="@color/black"
+           android:layout_marginTop="25dp"
+           />
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/recylerViewMain"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/hometext7"
+           android:layout_marginTop="15dp"
+           tools:listitem="@layout/list_jawaban"
+           />
+
+       <com.google.android.material.floatingactionbutton.FloatingActionButton
+           android:id="@+id/fab_main"
+           android:layout_width="65dp"
+           android:layout_height="65dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:layout_margin="16dp"
+           android:tint="@color/white"
+           android:clickable="true"
+           app:backgroundTint="@color/purple"
+           android:src="@drawable/icon_up"
+           android:elevation="0dp"
+           app:elevation="0dp"
+           app:borderWidth="0dp" />
+
+       <!-- FloatingActionButton Scan -->
+       <com.google.android.material.floatingactionbutton.FloatingActionButton
+           android:id="@+id/fab_scan"
+           android:layout_width="55dp"
+           android:layout_height="55dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginEnd="16dp"
+           android:tint="@color/white"
+           android:clickable="true"
+           app:backgroundTint="@color/purple"
+           android:src="@drawable/icon_scan"
+           android:elevation="0dp"
+           app:elevation="0dp"
+           app:borderWidth="0dp"
+           android:visibility="gone" />
+
+       <!-- FloatingActionButton Add -->
+       <com.google.android.material.floatingactionbutton.FloatingActionButton
+           android:id="@+id/fab_add"
+           android:layout_width="55dp"
+           android:layout_height="55dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginEnd="16dp"
+           android:tint="@color/white"
+           android:clickable="true"
+           app:backgroundTint="@color/purple"
+           android:src="@drawable/icon_add"
+           android:elevation="0dp"
+           app:elevation="0dp"
+           app:borderWidth="0dp"
+           android:visibility="gone" />
+
+   </RelativeLayout>
+
 </RelativeLayout>
