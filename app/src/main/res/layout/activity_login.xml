@@ -97,7 +97,7 @@
             app:hintEnabled="false"
             android:layout_marginTop="15dp"
             >
-            <com.example.storyapps.custom_component.EditTextPassword
+            <com.example.essy.custom_component.EditTextPassword
                 android:id="@+id/et_password"
                 android:layout_below="@id/et_username"
                 android:layout_width="match_parent"

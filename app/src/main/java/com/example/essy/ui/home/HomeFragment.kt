@@ -1,4 +1,4 @@
-package com.example.essy.ui
+package com.example.essy.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.essy.R
 import com.example.essy.databinding.FragmentHomeBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeFragment : Fragment() {
 
