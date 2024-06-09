@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.essy.databinding.FragmentProfileBinding
+import com.example.essy.ui.LoginActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -25,13 +26,26 @@ class ProfileFragment : Fragment() {
     }
 
     private fun buttonListener() {
-        binding.btnInformasi.setOnClickListener {
-            val intent = Intent(activity, InformationActivity::class.java)
+        binding.btnEdit.setOnClickListener {
+            val intent = Intent(activity, EditActivity::class.java)
             startActivity(intent)
         }
         binding.btnPassword.setOnClickListener {
             val intent = Intent(activity, PasswordActivity::class.java)
             startActivity(intent)
+        }
+        binding.btnInformasi.setOnClickListener {
+            val intent = Intent(activity, InformationActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnTeam.setOnClickListener {
+            val intent = Intent(activity, OurTeamActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
+            activity?.finish()
         }
     }
 }
