@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.InformationActivity"
+        android:background="@drawable/blur_bg"
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/custom_toolbar"
+            layout="@layout/custom_toolbar"/>
+
+        <ImageView
+            android:id="@+id/logo_essy"
+            android:layout_width="148dp"
+            android:layout_height="127dp"
+            android:layout_marginTop="250dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_logo_essy"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="100dp"
+            android:layout_centerHorizontal="true"
+            android:text="ESSY Versi 1.0\nDikembangkan oleh Tim Hoyey\nBangkit Academy 2024"
+            android:textAlignment="center"
+            android:fontFamily="@font/poppinssemibold"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            />
+
+    </RelativeLayout>
+
+</layout>
