@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Essy"
         tools:targetApi="31" >
         <activity
+            android:name=".ui.profile.EditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.OurTeamActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.profile.PasswordActivity"
             android:exported="false" />
         <activity

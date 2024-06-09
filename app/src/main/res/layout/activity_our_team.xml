@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.profile.OurTeamActivity"
+        android:background="@drawable/blur_bg"
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/custom_toolbar"
+            layout="@layout/custom_toolbar"/>
+
+
+
+    </RelativeLayout>
+
+</layout>
