@@ -1,4 +1,4 @@
-package com.example.essy.ui
+package com.example.essy.ui.profile
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -10,6 +10,7 @@ import com.example.essy.R
 import com.example.essy.databinding.ActivityInformationBinding
 
 class InformationActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityInformationBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
