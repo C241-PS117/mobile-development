@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Essy"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.home.ResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.ScanActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.home.AddKeywordActivity"
             android:exported="false" />
@@ -33,22 +47,23 @@
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Design.Light.NoActionBar" />
+            android:exported="true"
+            android:theme="@style/Theme.Design.Light.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="false"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
             android:name=".ui.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Design.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false"
+            android:theme="@style/Theme.Design.Light.NoActionBar"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".ui.OnBoardingActivity"
             android:exported="false" />

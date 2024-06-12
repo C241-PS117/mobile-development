@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.ResultActivity"
+    >
+
+    <ImageView
+        android:id="@+id/image_result"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:src="@drawable/image_results"
+        android:layout_marginTop="67dp"
+        />
+
+    <TextView
+        android:id="@+id/count_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:fontFamily="@font/poppinssemibold"
+        android:textSize="80dp"
+        android:text="100"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintEnabled="false"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/image_result"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_below="@id/layout_start_text2"
+            android:background="@drawable/shape_rounded_10"
+            android:paddingStart="20dp"
+            android:drawablePadding="15dp"
+            android:textSize="12sp"
+            android:hint="Masukkan Nama"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/white"
+            android:fontFamily="@font/poppinsregular"
+            android:ems="10"
+            android:inputType="text"
+            tools:ignore="SpeakableTextPresentCheck"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSimpan"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="Simpan"
+        android:fontFamily="@font/poppinssemibold"
+        app:backgroundTint="@color/purple"
+        android:background="@drawable/shape_rounded_10"
+        android:layout_below="@+id/layout_etUsername"
+        />
+
+</RelativeLayout>
