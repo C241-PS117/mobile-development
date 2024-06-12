@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.ScanActivity"
+        android:background="@drawable/blur_bg"
+        android:fitsSystemWindows="true"
+        >
+
+        <include
+            android:id="@+id/custom_toolbar"
+            layout="@layout/custom_toolbar"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="350dp"
+            android:layout_height="500dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/custom_toolbar"
+            android:background="@drawable/shape_rounded_30"
+            android:backgroundTint="@color/black"
+            />
+
+        <Button
+            android:id="@+id/btn_camera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="100dp"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@color/purple"
+            android:text="Camera"/>
+
+        <Button
+            android:id="@+id/btn_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="100dp"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/purple"
+            android:text="Gallery"/>
+
+        <Button
+            android:id="@+id/btn_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_camera"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/purple"
+            android:text="Upload"/>
+
+    </RelativeLayout>
+
+</layout>
+
