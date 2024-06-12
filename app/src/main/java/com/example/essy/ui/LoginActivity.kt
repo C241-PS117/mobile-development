@@ -2,11 +2,7 @@ package com.example.essy.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.essy.R
 import com.example.essy.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

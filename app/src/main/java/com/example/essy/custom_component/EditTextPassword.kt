@@ -1,4 +1,4 @@
-package com.example.storyapps.custom_component
+package com.example.essy.custom_component
 
 import android.content.Context
 import android.text.Editable
