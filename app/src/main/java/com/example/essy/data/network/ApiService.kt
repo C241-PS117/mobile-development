@@ -2,7 +2,9 @@ package com.example.essy.data.network
 
 
 import com.example.essy.data.model.LoginResponse;
+import com.example.essy.data.model.RegisterRequest
 import com.example.essy.data.model.RegisterResponse;
+import retrofit2.http.Body
 
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -10,19 +12,13 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-    @FormUrlEncoded
-    @POST("/register")
-    suspend fun register(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): RegisterResponse
+    @POST("api/register")
+    suspend fun register(@Body request: RegisterRequest): RegisterResponse
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("api/login")
     suspend fun login(
-        @Field("email") email: String,
+        @Field("username") username: String,
         @Field("password") password: String
     ): LoginResponse
-
 }
