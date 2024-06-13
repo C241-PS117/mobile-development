@@ -1,5 +1,6 @@
 package com.example.essy.data.network
 
+import com.example.essy.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,7 +19,7 @@ class ApiConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://backend1-jvegqzvkyq-et.a.run.app/api/")
+                .baseUrl("https://backend1-jvegqzvkyq-et.a.run.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

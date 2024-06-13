@@ -3,103 +3,87 @@ package com.example.essy.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Patterns
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.essy.R
-import com.example.essy.data.model.LoginResponse
-import com.example.essy.data.network.ApiConfig
+import com.example.essy.view_model.LoginViewModel
 import com.example.essy.databinding.ActivityLoginBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.essy.utils.ResultData
 
 class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKeyListener {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
 
         if (isLoggedIn()) {
-            navigateToMainActivity()
+            goToMainActivity()
         }
-
-        setupUI()
 
         binding.etUsername.onFocusChangeListener = this
         binding.etPassword.onFocusChangeListener = this
 
         binding.btnLogin.setOnClickListener {
-            handleLoginButtonClick()
+            val username = binding.etUsername.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            } else {
+                loginViewModel.login(username, password)
+            }
         }
 
         binding.txtRegister.setOnClickListener {
-            navigateToRegisterScreen()
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
         }
-    }
 
-    private fun setupUI() {
-        binding.apply {
-            layoutEtUsername.visibility = View.VISIBLE
-            layoutEtPassword.visibility = View.VISIBLE
-            btnLogin.visibility = View.VISIBLE
-            txtTitle.visibility = View.VISIBLE
-            txtRegister.visibility = View.VISIBLE
-        }
-    }
-
-
-
-    private fun handleLoginButtonClick() {
-        val email = binding.etUsername.text.toString().trim()
-        val password = binding.etPassword.text.toString().trim()
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
-        } else {
-            loginUser(email, password)
-        }
-    }
-
-    private fun loginUser(email: String, password: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = ApiConfig.getApiService().login(email, password)
-                withContext(Dispatchers.Main) {
-                    handleLoginResponse(response)
+        loginViewModel.loginResult.observe(this, Observer { result ->
+            when (result) {
+                is ResultData.Loading -> {
+                    // Tampilkan indikator loading jika diperlukan
                 }
-            } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        "Login failed. Please try again.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                is ResultData.Success -> {
+                    val response = result.data
+                    if (!response.error) {
+                        saveUserCredentials(response.data.username, response.data.id.toString())
+                        goToMainActivity()
+                    } else {
+                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ResultData.Error -> {
+                    Log.e("LoginError", result.exception.message.toString())
+                    Toast.makeText(this, "Login failed. Please try again.", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
+        })
     }
 
-    private fun handleLoginResponse(response: LoginResponse) {
-        if (!response.error) {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
-            saveUserCredentials(response.data?.username, response.data?.email)
-            navigateToMainActivity()
-        } else {
-            Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
-        }
+
+    private fun saveUserCredentials(username: String?, userId: String?) {
+        val editor = sharedPreferences.edit()
+        editor.putString("username", username)
+        editor.putString("user_id", userId)
+        editor.putBoolean("is_logged_in", true)
+        editor.apply()
     }
 
-    private fun navigateToMainActivity() {
+    private fun goToMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
@@ -109,66 +93,69 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
     }
 
     override fun onFocusChange(view: View?, hasFocus: Boolean) {
-        view?.let {
-            when (it.id) {
-                R.id.et_username -> if (!hasFocus) validateEmail() else binding.layoutEtUsername.error =
-                    null
-
-                R.id.et_password -> if (!hasFocus) validatePassword() else binding.layoutEtPassword.error =
-                    null
-
-                else -> {}
+        if (view != null) {
+            when(view.id) {
+                R.id.et_username -> {
+                    if (!hasFocus) {
+                        validationUsername()
+                    } else {
+                        binding.layoutEtUsername.error = null
+                    }
+                }
+                R.id.et_password -> {
+                    if (!hasFocus) {
+                        validationPassword()
+                    } else {
+                        binding.layoutEtPassword.error = null
+                    }
+                }
             }
         }
     }
 
-    override fun onKey(view: View?, keyCode: Int, event: KeyEvent?): Boolean {
+    override fun onKey(view: View?, event: Int, keyEvent: KeyEvent?): Boolean {
         return false
     }
 
-    private fun validateEmail(): Boolean {
-        val email = binding.etUsername.text.toString()
-        val errorMessage = when {
-            email.isEmpty() -> "Email is required"
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> "Invalid email address"
-            else -> null
+    private fun validationUsername(): Boolean {
+        var errorMessage: String? = null
+        val value = binding.etUsername.text.toString()
+
+        if (value.isEmpty()) {
+            errorMessage = "Username diperlukan"
         }
 
-        binding.etUsername.apply {
-            isErrorEnabled = errorMessage != null
-            error = errorMessage
-        }
-
-        return errorMessage == null
-    }
-
-    private fun validatePassword(): Boolean {
-        val password = binding.etPassword.text.toString()
-        val errorMessage = when {
-            password.isEmpty() -> "Password is required"
-            password.length < 8 -> "Password must be at least 8 characters long"
-            else -> null
-        }
-
-        binding.etPassword.apply {
-            isErrorEnabled = errorMessage != null
-            error = errorMessage
+        if (errorMessage != null) {
+            binding.layoutEtUsername.apply {
+                isErrorEnabled = true
+                error = errorMessage
+            }
+        } else {
+            binding.layoutEtUsername.error = null
         }
 
         return errorMessage == null
     }
 
-    private fun saveUserCredentials(username: String?, token: String?) {
-        sharedPreferences.edit().apply {
-            putString("username", username)
-            putString("token", token)
-            putBoolean("is_logged_in", true)
-            apply()
-        }
-    }
+    private fun validationPassword(): Boolean {
+        var errorMessage: String? = null
+        val value = binding.etPassword.text.toString()
 
-    private fun navigateToRegisterScreen() {
-        startActivity(Intent(this, RegisterActivity::class.java))
-        finish()
+        if (value.isEmpty()) {
+            errorMessage = "Password diperlukan"
+        } else if (value.length < 8) {
+            errorMessage = "Password harus sepanjang 8 karakter"
+        }
+
+        if (errorMessage != null) {
+            binding.layoutEtPassword.apply {
+                isErrorEnabled = true
+                error = errorMessage
+            }
+        } else {
+            binding.layoutEtPassword.error = null
+        }
+
+        return errorMessage == null
     }
 }

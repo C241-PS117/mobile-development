@@ -24,6 +24,9 @@
             android:name=".ui.home.ResultActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.home.HomeFragment"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.ScanActivity"
             android:exported="false" />
         <activity
