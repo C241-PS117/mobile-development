@@ -34,7 +34,7 @@
             android:layout_toRightOf="@+id/icJawaban"
             android:layout_marginStart="25dp"
             android:fontFamily="@font/poppinsbold"
-            android:text="Jawaban 1"
+            android:text="Soal 1"
             android:textSize="12sp" />
 
     </RelativeLayout>

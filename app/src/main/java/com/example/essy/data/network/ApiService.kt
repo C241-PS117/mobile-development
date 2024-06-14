@@ -1,9 +1,11 @@
 package com.example.essy.data.network
 
 
+import com.example.essy.data.model.EditProfileResponse
 import com.example.essy.data.model.LoginResponse;
 import com.example.essy.data.model.RegisterRequest
 import com.example.essy.data.model.RegisterResponse;
+import com.example.essy.data.model.TambahSoalResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 
@@ -24,4 +26,18 @@ interface ApiService {
         @Part("username") username: RequestBody,
         @Part("password") password: RequestBody
     ): LoginResponse
+
+    @Multipart
+    @POST("api/tambahsoal")
+    suspend fun tambahSoal(
+        @Part("soal") soal: RequestBody,
+        @Part("jawaban") jawaban: RequestBody
+    ): TambahSoalResponse
+
+    @Multipart
+    @POST("api/editprofile")
+    suspend fun editprofil(
+        @Part("soal") soal: RequestBody,
+        @Part("jawaban") jawaban: RequestBody
+    ): EditProfileResponse
 }
