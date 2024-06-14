@@ -36,13 +36,16 @@
             android:layout_marginTop="-10dp"
             />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/circle_profile"
             android:layout_width="46dp"
             android:layout_height="46dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
-            app:srcCompat="@color/black"
+            android:src="@color/black"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/white"
             />
 
         <LinearLayout
@@ -144,7 +147,7 @@
                 android:id="@+id/countScan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20"
+                android:text="0"
                 android:fontFamily="@font/poppinsbold"
                 android:textSize="20sp"
                 android:textColor="@color/black"
