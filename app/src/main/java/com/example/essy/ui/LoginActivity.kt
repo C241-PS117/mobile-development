@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
 
         if (isLoggedIn()) {
@@ -55,11 +54,18 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         loginViewModel.loginResult.observe(this, Observer { result ->
             when (result) {
                 is ResultData.Loading -> {
+                    // Show loading indicator
                 }
                 is ResultData.Success -> {
                     val response = result.data
                     if (!response.error) {
-                        saveUserCredentials(response.data.username, response.data.id.toString(), response.data.urlgambar)
+                        saveUserCredentials(
+                            response.data.username,
+                            response.data.id.toString(),
+                            response.data.urlgambar,
+                            response.data.email,
+                            response.data.jeniskelamin
+                        )
                         goToMainActivity()
                     } else {
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
@@ -73,12 +79,13 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         })
     }
 
-
-    private fun saveUserCredentials(username: String?, userId: String?, urlgambar: String?) {
+    private fun saveUserCredentials(username: String?, userId: String?, urlgambar: String?, email: String?, jenisKelamin: String?) {
         val editor = sharedPreferences.edit()
         editor.putString("username", username)
         editor.putString("user_id", userId)
         editor.putString("profile_image_url", urlgambar)
+        editor.putString("profile_email", email)
+        editor.putString("jenisKelamin", jenisKelamin)
         editor.putBoolean("is_logged_in", true)
         editor.apply()
     }
