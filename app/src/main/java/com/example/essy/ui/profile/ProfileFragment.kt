@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import coil.load
+import com.example.essy.R
 import com.example.essy.databinding.FragmentProfileBinding
 import com.example.essy.ui.LoginActivity
 
@@ -23,7 +25,21 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadUserData()
         buttonListener()
+    }
+
+    private fun loadUserData() {
+        val sharedPreferences = activity?.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        val username = sharedPreferences?.getString("username", "Username")
+        val email = sharedPreferences?.getString("profile_email", "Email")
+        val profileImageUrl = sharedPreferences?.getString("profile_image_url", "")
+
+        binding.profileName.text = username
+        binding.profileEmail.text = email
+
+        binding.circleProfile.load(profileImageUrl) {
+        }
     }
 
     private fun buttonListener() {
