@@ -1,16 +1,13 @@
 package com.example.essy.data.network
 
-
 import com.example.essy.data.model.EditProfileResponse
-import com.example.essy.data.model.LoginResponse;
+import com.example.essy.data.model.LoginResponse
+import com.example.essy.data.model.QuestionResponse
 import com.example.essy.data.model.RegisterRequest
-import com.example.essy.data.model.RegisterResponse;
+import com.example.essy.data.model.RegisterResponse
 import com.example.essy.data.model.TambahSoalResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
-
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -30,6 +27,7 @@ interface ApiService {
     @Multipart
     @POST("api/tambahsoal")
     suspend fun tambahSoal(
+        @Part("idGuru") idGuru: RequestBody,
         @Part("soal") soal: RequestBody,
         @Part("jawaban") jawaban: RequestBody
     ): TambahSoalResponse
@@ -37,9 +35,15 @@ interface ApiService {
     @Multipart
     @POST("api/editprofil")
     suspend fun editprofil(
-        @Part("usename") username: RequestBody,
+        @Part("username") username: RequestBody,
         @Part("email") email: RequestBody,
         @Part("jeniskelamin") jeniskelamin: RequestBody,
         @Part("DataGambar") DataGambar: RequestBody,
     ): EditProfileResponse
+
+    @Multipart
+    @POST("api/soal")
+    suspend fun getSoal(
+        @Part("idGuru") idGuru: RequestBody
+    ): QuestionResponse
 }
