@@ -78,7 +78,7 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         val editor = sharedPreferences.edit()
         editor.putString("username", username)
         editor.putString("user_id", userId)
-        editor.putString("urlgambar", urlgambar)
+        editor.putString("profile_image_url", urlgambar)
         editor.putBoolean("is_logged_in", true)
         editor.apply()
     }
