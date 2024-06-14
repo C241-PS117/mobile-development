@@ -35,9 +35,11 @@ interface ApiService {
     ): TambahSoalResponse
 
     @Multipart
-    @POST("api/editprofile")
+    @POST("api/editprofil")
     suspend fun editprofil(
-        @Part("soal") soal: RequestBody,
-        @Part("jawaban") jawaban: RequestBody
+        @Part("usename") username: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("jeniskelamin") jeniskelamin: RequestBody,
+        @Part("DataGambar") DataGambar: RequestBody,
     ): EditProfileResponse
 }

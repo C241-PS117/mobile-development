@@ -55,12 +55,11 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         loginViewModel.loginResult.observe(this, Observer { result ->
             when (result) {
                 is ResultData.Loading -> {
-                    // Tampilkan indikator loading jika diperlukan
                 }
                 is ResultData.Success -> {
                     val response = result.data
                     if (!response.error) {
-                        saveUserCredentials(response.data.username, response.data.id.toString())
+                        saveUserCredentials(response.data.username, response.data.id.toString(), response.data.urlgambar)
                         goToMainActivity()
                     } else {
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
@@ -75,10 +74,11 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
     }
 
 
-    private fun saveUserCredentials(username: String?, userId: String?) {
+    private fun saveUserCredentials(username: String?, userId: String?, urlgambar: String?) {
         val editor = sharedPreferences.edit()
         editor.putString("username", username)
         editor.putString("user_id", userId)
+        editor.putString("urlgambar", urlgambar)
         editor.putBoolean("is_logged_in", true)
         editor.apply()
     }
