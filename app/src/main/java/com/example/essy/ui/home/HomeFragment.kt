@@ -53,23 +53,22 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun displayUserInfo() {
-        val username = sharedPreferences.getString("username", "User")
-        val profileImageUrl = sharedPreferences.getString("profile_image_url", null)
+private fun displayUserInfo() {
+    val username = sharedPreferences.getString("username", "User")
+    val profileImageUrl = sharedPreferences.getString("profile_image_url", null)
 
-        binding.hometext1.text = getString(R.string.welcome_message, username)
+    binding.hometext1.text = getString(R.string.welcome_message, username)
 
-        if (profileImageUrl != null) {
-            Log.d("HomeFragment", "Profile image URL: $profileImageUrl")
-            binding.circleProfile.load(profileImageUrl) {
-                crossfade(true)
-//                placeholder(R.drawable.placeholder_image)
-//                error(R.drawable.error_image)
-            }
-        } else {
-            Log.d("HomeFragment", "Profile image URL is null")
+    Log.d("HomeFragment", "Profile image URL: $profileImageUrl") // Add this line
+
+    if (profileImageUrl != null) {
+        binding.circleProfile.load(profileImageUrl) {
+            crossfade(true)
         }
+    } else {
+        Log.d("HomeFragment", "Profile image URL is null")
     }
+}
 
     private fun openFabMenu() {
         isFabOpen = true
