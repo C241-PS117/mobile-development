@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.essy.R
 import com.example.essy.adapter.QuestionAdapter
 import com.example.essy.data.model.QuestionResult
@@ -81,6 +82,7 @@ class HomeFragment : Fragment() {
     private fun displayQuestionList(questions: List<QuestionResult>) {
         questionAdapter = QuestionAdapter(questions)
         binding.recylerViewMain.adapter = questionAdapter
+        binding.countKeyword.text = questions.size.toString()
     }
 
 
@@ -94,7 +96,7 @@ class HomeFragment : Fragment() {
 
         if (profileImageUrl != null) {
             binding.circleProfile.load(profileImageUrl) {
-                crossfade(true)
+                transformations(CircleCropTransformation())
             }
         } else {
             Log.d("HomeFragment", "Profile image URL is null")
