@@ -5,5 +5,5 @@ data class RegisterRequest(
     val password: String,
     val email: String,
     val jeniskelamin: String,
-    val DataGambar: String // Ini adalah string untuk URL gambar yang akan diupload
+    val DataGambar: String
 )

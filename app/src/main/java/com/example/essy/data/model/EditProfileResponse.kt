@@ -1,5 +1,5 @@
 package com.example.essy.data.model
 
-data class RegisterResponse(
+data class EditProfileResponse(
     val message: String
 )
