@@ -1,5 +1,6 @@
 package com.example.essy.ui.profile
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,17 +12,17 @@ import com.example.essy.ui.LoginActivity
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
-
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         buttonListener()
     }
 
@@ -43,9 +44,15 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
         }
         binding.btnLogout.setOnClickListener {
+            clearUserSession()
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
             activity?.finish()
         }
+    }
+
+    private fun clearUserSession() {
+        val sharedPreferences = activity?.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        sharedPreferences?.edit()?.clear()?.apply()
     }
 }
