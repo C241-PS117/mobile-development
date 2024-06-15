@@ -1,4 +1,5 @@
 package com.example.essy.data.model
 
-class UpdatePasswordResponse {
-}
+data class UpdatePasswordResponse(
+    val message: String
+)
