@@ -38,7 +38,7 @@ interface ApiService {
         @Part("username") username: RequestBody,
         @Part("email") email: RequestBody,
         @Part("jeniskelamin") jeniskelamin: RequestBody,
-        @Part("DataGambar") DataGambar: RequestBody,
+        @Part("DataGambar") DataGambar: RequestBody?
     ): EditProfileResponse
 
     @Multipart
