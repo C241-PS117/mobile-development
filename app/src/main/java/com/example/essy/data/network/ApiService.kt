@@ -6,6 +6,7 @@ import com.example.essy.data.model.QuestionResponse
 import com.example.essy.data.model.RegisterRequest
 import com.example.essy.data.model.RegisterResponse
 import com.example.essy.data.model.TambahSoalResponse
+import com.example.essy.data.model.UpdatePasswordResponse
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Multipart
@@ -46,4 +47,12 @@ interface ApiService {
     suspend fun getSoal(
         @Part("idGuru") idGuru: RequestBody
     ): QuestionResponse
+
+    @Multipart
+    @POST("api/ubahpassword")
+    suspend fun ubahPassword(
+        @Part("id") id: RequestBody,
+        @Part("oldPassword") oldPassword: RequestBody,
+        @Part("newPassword") newPassword: RequestBody
+    ): UpdatePasswordResponse
 }
