@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import coil.load
-import com.example.essy.R
 import com.example.essy.databinding.FragmentProfileBinding
 import com.example.essy.ui.LoginActivity
 
@@ -45,7 +44,7 @@ class ProfileFragment : Fragment() {
     private fun buttonListener() {
         binding.btnEdit.setOnClickListener {
             val intent = Intent(activity, EditActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, EDIT_PROFILE_REQUEST)
         }
         binding.btnPassword.setOnClickListener {
             val intent = Intent(activity, PasswordActivity::class.java)
@@ -65,6 +64,10 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             activity?.finish()
         }
+    }
+
+    companion object {
+        private const val EDIT_PROFILE_REQUEST = 1
     }
 
     private fun clearUserSession() {
