@@ -36,6 +36,7 @@ interface ApiService {
     @Multipart
     @POST("api/editprofil")
     suspend fun editprofil(
+        @Part("id") id: RequestBody,
         @Part("username") username: RequestBody,
         @Part("email") email: RequestBody,
         @Part("jeniskelamin") jeniskelamin: RequestBody,
