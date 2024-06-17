@@ -70,8 +70,12 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
     private fun setupRecyclerView() {
-        questionAdapter = QuestionAdapter(emptyList()) // Initialize with empty list
+        questionAdapter = QuestionAdapter(emptyList()) { question ->
+            // Handle item click here
+            navigateToScanActivity(question)
+        }
         binding.recylerViewMain.apply {
             adapter = questionAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -80,11 +84,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayQuestionList(questions: List<QuestionResult>) {
-        questionAdapter = QuestionAdapter(questions)
+        questionAdapter = QuestionAdapter(questions) { question ->
+            // Handle item click here
+            navigateToScanActivity(question)
+        }
         binding.recylerViewMain.adapter = questionAdapter
         binding.countKeyword.text = questions.size.toString()
     }
 
+    private fun navigateToScanActivity(question: QuestionResult) {
+        val intent = Intent(activity, ScanActivity::class.java).apply {
+            putExtra("QUESTION_ID", question.id)
+            putExtra("QUESTION_ANSWER", question.jawaban)
+        }
+        startActivity(intent)
+    }
 
     private fun displayUserInfo() {
         val username = sharedPreferences.getString("username", "User")
