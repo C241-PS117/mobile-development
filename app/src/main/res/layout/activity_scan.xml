@@ -18,46 +18,87 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="350dp"
-            android:layout_height="500dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
             android:layout_below="@+id/custom_toolbar"
             android:background="@drawable/shape_rounded_30"
             android:backgroundTint="@color/black"
             />
 
-        <Button
-            android:id="@+id/btn_camera"
+        <LinearLayout
+            android:id="@+id/layout_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="100dp"
-            android:layout_alignParentEnd="true"
-            android:backgroundTint="@color/purple"
-            android:text="Camera"/>
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageView">
 
-        <Button
-            android:id="@+id/btn_gallery"
+            <Button
+                android:id="@+id/btn_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView"
+                android:backgroundTint="@color/purple"
+                android:layout_marginEnd="8dp"
+                android:text="Camera"/>
+
+            <Button
+                android:id="@+id/btn_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imageView"
+                android:backgroundTint="@color/purple"
+                android:layout_marginStart="8dp"
+                android:text="Gallery"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_keywoard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/imageView"
+            android:layout_below="@id/layout_button"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:text="Keyword"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="100dp"
-            android:layout_alignParentStart="true"
-            android:backgroundTint="@color/purple"
-            android:text="Gallery"/>
+            android:fontFamily="@font/poppinssemibold"
+            android:textSize="15sp"
+            />
+
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/txt_keywoard"
+            android:gravity="start|top"
+            android:padding="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/shape_rounded_10"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/poppinsregular"
+            android:textSize="15sp"
+            android:hint="Keyword anda disini"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false" />
 
         <Button
             android:id="@+id/btn_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_camera"
+            android:layout_below="@id/et_description"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/purple"
-            android:text="Upload"/>
+            android:text="Scan"/>
 
     </RelativeLayout>
 

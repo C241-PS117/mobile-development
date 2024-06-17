@@ -84,7 +84,7 @@
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/poppinsregular"
                 android:textSize="15sp"
-                android:hint="Tulis deskripsi anda disini"/>
+                android:hint="Tulis keyword anda disini"/>
 
             <TextView
                 android:id="@+id/txt_keywoard3"

@@ -2,11 +2,13 @@ package com.example.essy.data.network
 
 import com.example.essy.data.model.EditProfileResponse
 import com.example.essy.data.model.LoginResponse
+import com.example.essy.data.model.PredictResponse
 import com.example.essy.data.model.QuestionResponse
 import com.example.essy.data.model.RegisterRequest
 import com.example.essy.data.model.RegisterResponse
 import com.example.essy.data.model.TambahSoalResponse
 import com.example.essy.data.model.UpdatePasswordResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.Multipart
@@ -36,6 +38,7 @@ interface ApiService {
     @Multipart
     @POST("api/editprofil")
     suspend fun editprofil(
+        @Part("id") id: RequestBody,
         @Part("username") username: RequestBody,
         @Part("email") email: RequestBody,
         @Part("jeniskelamin") jeniskelamin: RequestBody,
@@ -55,4 +58,11 @@ interface ApiService {
         @Part("oldPassword") oldPassword: RequestBody,
         @Part("newPassword") newPassword: RequestBody
     ): UpdatePasswordResponse
+
+    @Multipart
+    @POST("predict")
+    suspend fun predict(
+        @Part image: MultipartBody.Part,
+        @Part("jawaban") jawaban: RequestBody
+    ): PredictResponse
 }
