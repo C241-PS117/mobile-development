@@ -10,29 +10,41 @@ import com.example.essy.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var profileFragment: ProfileFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val homeFragment = HomeFragment()
-        val profileFragment = ProfileFragment()
-        makeCurrentFragment(homeFragment)
+        homeFragment = HomeFragment()
+        profileFragment = ProfileFragment()
 
-        binding.bottomNavigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_home -> makeCurrentFragment(homeFragment)
-                R.id.nav_profile -> makeCurrentFragment(profileFragment)
+        // Tambahkan homeFragment secara default jika savedInstanceState null
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout, homeFragment)
+                commit()
+            }
+        }
+
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> showFragment(homeFragment)
+                R.id.nav_profile -> showFragment(profileFragment)
             }
             true
         }
-
     }
 
-    private fun makeCurrentFragment(fragment: Fragment) =
+    private fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.frameLayout, fragment)
+            addToBackStack(null) // Tambahkan fragment ke back stack
             commit()
         }
+    }
 }
+
+
