@@ -15,5 +15,3 @@ data class LoginResult(
     val urlgambar: String,
     val username: String
 )
-
-//hdgdsg

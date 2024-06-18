@@ -42,29 +42,42 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+
+        setupSwipeRefresh()
+        setupRecyclerView()
+        setupFabButtons()
+        observerViewModel()
+
+        // Load data pertama kali saat fragment pertama kali dibuat
+        loadData()
+    }
+
+    private fun loadData() {
         val userId = sharedPreferences.getString("user_id", null)?.toIntOrNull()
         if (userId != null) {
             viewModel.getQuestions(userId)
         }
         displayUserInfo()
-        setupFabButtons()
-        setupRecyclerView()
-        observerViewModel()
-
     }
 
     private fun observerViewModel() {
         viewModel.questionResult.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is ResultData.Loading -> {
-                    // Show loading indicator if needed
+                    if (!binding.swipeRefreshLayout.isRefreshing) {
+                        binding.swipeRefreshLayout.isRefreshing = true
+                    }
                 }
                 is ResultData.Success -> {
                     val questions = result.data.data // Assuming data is List<QuestionResult>
+                    Log.d("HomeFragment", "Received ${questions.size} questions")
                     displayQuestionList(questions)
+                    binding.swipeRefreshLayout.isRefreshing = false
                 }
                 is ResultData.Error -> {
+                    binding.swipeRefreshLayout.isRefreshing = false
                     Toast.makeText(requireContext(), "Failed to fetch questions", Toast.LENGTH_SHORT).show()
+                    Log.e("HomeFragment", "Error fetching questions", result.exception)
                 }
             }
         })
@@ -83,13 +96,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun displayQuestionList(questions: List<QuestionResult>) {
-        questionAdapter = QuestionAdapter(questions) { question ->
-            // Handle item click here
-            navigateToScanActivity(question)
-        }
-        binding.recylerViewMain.adapter = questionAdapter
+        // Update adapter with new list of questions
+        questionAdapter.setData(questions)
+
+        // Update count keyword text view
         binding.countKeyword.text = questions.size.toString()
     }
+
 
     private fun navigateToScanActivity(question: QuestionResult) {
         val intent = Intent(activity, ScanActivity::class.java).apply {
@@ -105,22 +118,23 @@ class HomeFragment : Fragment() {
 
         binding.hometext1.text = getString(R.string.welcome_message, username)
 
-        Log.d("HomeFragment", "Profile image URL: $profileImageUrl") // Add this line
-
         if (profileImageUrl != null) {
             binding.circleProfile.load(profileImageUrl) {
                 transformations(CircleCropTransformation())
             }
-        } else {
-            Log.d("HomeFragment", "Profile image URL is null")
         }
     }
 
     private fun setupFabButtons() {
-
         binding.fabAdd.setOnClickListener {
             val intent = Intent(activity, AddKeywordActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun setupSwipeRefresh() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            loadData() // Panggil loadData() untuk melakukan refresh data
         }
     }
 

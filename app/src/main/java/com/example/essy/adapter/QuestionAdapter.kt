@@ -7,7 +7,7 @@ import com.example.essy.data.model.QuestionResult
 import com.example.essy.databinding.ListJawabanBinding
 
 class QuestionAdapter(
-    private val questionList: List<QuestionResult>,
+    private var questionList: List<QuestionResult>,
     private val onItemClickListener: (QuestionResult) -> Unit
 ) : RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {
 
@@ -22,6 +22,11 @@ class QuestionAdapter(
     }
 
     override fun getItemCount(): Int = questionList.size
+
+    fun setData(newQuestions: List<QuestionResult>) {
+        questionList = newQuestions
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(private val binding: ListJawabanBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(question: QuestionResult) {
