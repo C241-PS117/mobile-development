@@ -3,7 +3,9 @@ package com.example.essy.ui.home
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.essy.R
 import com.example.essy.adapter.NilaiAdapter
 import com.example.essy.data.model.NilaiResponse
 import com.example.essy.data.model.NilaiResult
@@ -26,7 +28,10 @@ class HistoryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_history)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_history)
+
+        initUi()
 
         setupRecyclerView()
 
@@ -76,5 +81,11 @@ class HistoryActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    private fun initUi(){
+        binding.customToolbar.btnBack.setOnClickListener {
+            finish()
+        }
+        binding.customToolbar.txtTitle.text = "Histori Nilai Siswa"
     }
 }

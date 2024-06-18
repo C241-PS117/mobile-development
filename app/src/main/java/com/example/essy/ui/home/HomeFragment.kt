@@ -17,6 +17,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.example.essy.R
 import com.example.essy.adapter.QuestionAdapter
+import com.example.essy.data.model.CountJawabanResponse
 import com.example.essy.data.model.QuestionResult
 import com.example.essy.databinding.FragmentHomeBinding
 import com.example.essy.utils.ResultData
@@ -56,6 +57,7 @@ class HomeFragment : Fragment() {
         val userId = sharedPreferences.getString("user_id", null)?.toIntOrNull()
         if (userId != null) {
             viewModel.getQuestions(userId)
+            viewModel.getCountJawaban(userId) // Panggil fungsi untuk memuat total jawaban
         }
         displayUserInfo()
     }
@@ -81,6 +83,32 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+
+        // HomeFragment.kt
+        viewModel.countJawabanResult.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
+                is ResultData.Success -> {
+                    val totalJawabanList = result.data.data
+                    if (totalJawabanList.isNotEmpty()) {
+                        val totalJawaban = totalJawabanList[0].TotalJawaban
+                        Log.d("HomeFragment", "Total Jawaban: $totalJawaban")
+                        binding.countScan.text = totalJawaban.toString()
+                    } else {
+                        // Handle jika data kosong
+                        Log.e("HomeFragment", "Total Jawaban tidak ditemukan dalam respons")
+                        Toast.makeText(requireContext(), "Total Jawaban tidak ditemukan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                is ResultData.Error -> {
+                    Toast.makeText(requireContext(), "Gagal mengambil total jawaban", Toast.LENGTH_SHORT).show()
+                    Log.e("HomeFragment", "Error fetching total jawaban", result.exception)
+                }
+                else -> {
+                    // Tidak perlu melakukan apa pun untuk ResultData.Loading karena sudah dihandle di loadData()
+                }
+            }
+        })
+
     }
 
     private fun setupRecyclerView() {
