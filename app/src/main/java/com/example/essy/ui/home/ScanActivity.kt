@@ -34,12 +34,11 @@ class ScanActivity : AppCompatActivity() {
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
-        private const val REQUEST_IMAGE_CAPTURE = 1
-        private const val REQUEST_IMAGE_PICK = 2
     }
 
     private lateinit var binding: ActivityScanBinding
     private var imageFile: File? = null
+    private var currentQuestionId: Int = 0 // Variable to hold the current question ID
 
     private val startForResultGallery =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -81,6 +80,9 @@ class ScanActivity : AppCompatActivity() {
 
         val questionText = intent.getStringExtra("QUESTION_ANSWER") ?: ""
         binding.etDescription.setText(questionText)
+
+        // Get question ID from intent
+        currentQuestionId = intent.getIntExtra("QUESTION_ID", 0)
 
         initUi()
     }
@@ -162,7 +164,7 @@ class ScanActivity : AppCompatActivity() {
     }
 
     private fun predictImage(imagePart: MultipartBody.Part, jawaban: String) {
-        // Menampilkan ProgressBar
+        // Show ProgressBar
         binding.progressBar.visibility = View.VISIBLE
 
         lifecycleScope.launch {
@@ -172,20 +174,20 @@ class ScanActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this@ScanActivity, "Prediction failed", Toast.LENGTH_SHORT).show()
             } finally {
-                // Menyembunyikan ProgressBar setelah selesai
+                // Hide ProgressBar after completion
                 binding.progressBar.visibility = View.GONE
             }
         }
     }
 
-
     private fun handlePredictResponse(response: PredictResponse) {
         binding.etDescription.setText(response.jawaban)
         Toast.makeText(this, "Total Nilai Jawaban: ${response.totalNilaiJawaban}", Toast.LENGTH_SHORT).show()
 
-        // Start ResultActivity and pass the total score
+        // Start ResultActivity and pass the total score and question ID
         val intent = Intent(this@ScanActivity, ResultActivity::class.java)
         intent.putExtra("TOTAL_NILAI_JAWABAN", response.totalNilaiJawaban)
+        intent.putExtra("QUESTION_ID", currentQuestionId) // Pass the current question ID
         startActivity(intent)
     }
 }

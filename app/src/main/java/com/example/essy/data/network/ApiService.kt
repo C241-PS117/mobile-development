@@ -6,6 +6,7 @@ import com.example.essy.data.model.PredictResponse
 import com.example.essy.data.model.QuestionResponse
 import com.example.essy.data.model.RegisterRequest
 import com.example.essy.data.model.RegisterResponse
+import com.example.essy.data.model.TambahNilaiResponse
 import com.example.essy.data.model.TambahSoalResponse
 import com.example.essy.data.model.UpdatePasswordResponse
 import okhttp3.MultipartBody
@@ -65,4 +66,13 @@ interface ApiService {
         @Part image: MultipartBody.Part,
         @Part("jawaban") jawaban: RequestBody
     ): PredictResponse
+
+    @Multipart
+    @POST("api/tambahnilai")
+    suspend fun tambahNilai(
+        @Part("idSoal") idSoal: RequestBody,
+        @Part("idGuru") idGuru: RequestBody,
+        @Part("namaSiswa") namaSiswa: RequestBody,
+        @Part("nilaiSiswa") nilaiSiswa: RequestBody
+    ): TambahNilaiResponse
 }
