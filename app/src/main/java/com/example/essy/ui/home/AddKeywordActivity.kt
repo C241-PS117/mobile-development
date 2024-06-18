@@ -1,14 +1,17 @@
 package com.example.essy.ui.home
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.essy.R
 import com.example.essy.data.network.ApiConfig
 import com.example.essy.databinding.ActivityAddKeywordBinding
+import com.example.essy.ui.MainActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,15 +61,23 @@ class AddKeywordActivity : AppCompatActivity() {
             val jawabanBody = jawaban.toRequestBody("text/plain".toMediaTypeOrNull())
 
             CoroutineScope(Dispatchers.IO).launch {
-                val response = ApiConfig.getApiService().tambahSoal(idGuruBody, soalBody, jawabanBody)
-                withContext(Dispatchers.Main) {
-                    if (response != null) {
-                        Toast.makeText(this@AddKeywordActivity, response.message, Toast.LENGTH_SHORT).show()
-                        if (response.message == "Success") {
+                try {
+                    val response = ApiConfig.getApiService().tambahSoal(idGuruBody, soalBody, jawabanBody)
+                    withContext(Dispatchers.Main) {
+                        if (response != null && response.message == "Data added successfully") {
+                            Toast.makeText(this@AddKeywordActivity, "Data berhasil disimpan", Toast.LENGTH_SHORT).show()
+                            val i = Intent(this@AddKeywordActivity, MainActivity::class.java)
+                            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(i)
                             finish()
+                        } else {
+                            Toast.makeText(this@AddKeywordActivity, "Gagal menyimpan data", Toast.LENGTH_SHORT).show()
                         }
-                    } else {
-                        Toast.makeText(this@AddKeywordActivity, "Failed to add question", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    Log.e("AddKeywordActivity", "Error: ${e.message}", e)
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(this@AddKeywordActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -74,4 +85,5 @@ class AddKeywordActivity : AppCompatActivity() {
             Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
