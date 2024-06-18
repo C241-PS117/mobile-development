@@ -26,7 +26,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var isFabOpen = false
     private lateinit var sharedPreferences: SharedPreferences
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var questionAdapter: QuestionAdapter
@@ -117,45 +116,11 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun openFabMenu() {
-        isFabOpen = true
-        binding.fabScan.apply {
-            visibility = View.VISIBLE
-            animate().translationY(-resources.getDimension(R.dimen.fab_margin_1)).alpha(1f).setDuration(200).start()
-        }
-        binding.fabAdd.apply {
-            visibility = View.VISIBLE
-            animate().translationY(-resources.getDimension(R.dimen.fab_margin_2)).alpha(1f).setDuration(200).start()
-        }
-    }
-
     private fun setupFabButtons() {
-        binding.fabMain.setOnClickListener {
-            if (isFabOpen) {
-                closeFabMenu()
-            } else {
-                openFabMenu()
-            }
-        }
-
-        binding.fabScan.setOnClickListener {
-            val intent = Intent(activity, ScanActivity::class.java)
-            startActivity(intent)
-        }
 
         binding.fabAdd.setOnClickListener {
             val intent = Intent(activity, AddKeywordActivity::class.java)
             startActivity(intent)
-        }
-    }
-
-    private fun closeFabMenu() {
-        isFabOpen = false
-        binding.fabScan.apply {
-            animate().translationY(0f).alpha(0f).setDuration(200).withEndAction { visibility = View.GONE }.start()
-        }
-        binding.fabAdd.apply {
-            animate().translationY(0f).alpha(0f).setDuration(200).withEndAction { visibility = View.GONE }.start()
         }
     }
 

@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -161,15 +162,22 @@ class ScanActivity : AppCompatActivity() {
     }
 
     private fun predictImage(imagePart: MultipartBody.Part, jawaban: String) {
+        // Menampilkan ProgressBar
+        binding.progressBar.visibility = View.VISIBLE
+
         lifecycleScope.launch {
             try {
                 val response = ApiConfig.getApiServiceSecond().predict(imagePart, jawaban.toRequestBody())
                 handlePredictResponse(response)
             } catch (e: Exception) {
                 Toast.makeText(this@ScanActivity, "Prediction failed", Toast.LENGTH_SHORT).show()
+            } finally {
+                // Menyembunyikan ProgressBar setelah selesai
+                binding.progressBar.visibility = View.GONE
             }
         }
     }
+
 
     private fun handlePredictResponse(response: PredictResponse) {
         binding.etDescription.setText(response.jawaban)

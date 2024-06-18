@@ -117,16 +117,16 @@
                 android:fontFamily="@font/poppinssemibold"
                 app:backgroundTint="@color/purple"
                 android:background="@drawable/shape_rounded_10"/>
-            <Button
-                android:id="@+id/btnHapusAkun"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
-                android:layout_centerHorizontal="true"
-                android:text="Hapus Akun"
-                android:fontFamily="@font/poppinssemibold"
-                app:backgroundTint="@color/red"
-                android:background="@drawable/shape_rounded_10"/>
+<!--            <Button-->
+<!--                android:id="@+id/btnHapusAkun"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:text="Hapus Akun"-->
+<!--                android:fontFamily="@font/poppinssemibold"-->
+<!--                app:backgroundTint="@color/red"-->
+<!--                android:background="@drawable/shape_rounded_10"/>-->
 
         </LinearLayout>
 
