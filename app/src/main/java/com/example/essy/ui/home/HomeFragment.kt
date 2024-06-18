@@ -130,6 +130,10 @@ class HomeFragment : Fragment() {
             val intent = Intent(activity, AddKeywordActivity::class.java)
             startActivity(intent)
         }
+        binding.layoutCard2.setOnClickListener {
+            val intent = Intent(activity, HistoryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setupSwipeRefresh() {
