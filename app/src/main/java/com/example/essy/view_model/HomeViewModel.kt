@@ -3,6 +3,7 @@ package com.example.essy.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.essy.data.model.CountJawabanResponse
 import com.example.essy.data.model.QuestionResponse
 import com.example.essy.data.network.ApiConfig
 import com.example.essy.utils.ResultData
@@ -13,6 +14,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class HomeViewModel : ViewModel() {
 
     val questionResult = MutableLiveData<ResultData<QuestionResponse>>()
+    val countJawabanResult = MutableLiveData<ResultData<CountJawabanResponse>>()
 
     fun getQuestions(id: Int) {
         questionResult.value = ResultData.Loading
@@ -30,4 +32,20 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+
+    fun getCountJawaban(userId: Int) {
+        countJawabanResult.value = ResultData.Loading
+
+        val userIdRequestBody = userId.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+        viewModelScope.launch {
+            try {
+                val response = ApiConfig.getApiService().getCountJawaban(userIdRequestBody)
+                countJawabanResult.value = ResultData.Success(response)
+            } catch (e: Exception) {
+                countJawabanResult.value = ResultData.Error(e)
+            }
+        }
+    }
+
 }
