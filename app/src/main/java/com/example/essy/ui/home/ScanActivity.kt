@@ -135,14 +135,6 @@ class ScanActivity : AppCompatActivity() {
         }
     }
 
-    private fun dispatchPickImageIntent() {
-        Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).also { pickIntent ->
-            pickIntent.resolveActivity(packageManager)?.also {
-                startForResultGallery.launch(pickIntent)
-            }
-        }
-    }
-
     private fun bitmapToFile(bitmap: Bitmap): File {
         val filesDir = applicationContext.filesDir
         val file = File(filesDir, "temp_image.jpg")

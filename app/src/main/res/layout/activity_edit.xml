@@ -34,6 +34,7 @@
                 app:civ_border_color="@color/white"
                 />
             <ImageView
+                android:id="@+id/edit_profile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_edit_profile"
@@ -129,6 +130,16 @@
 <!--                android:background="@drawable/shape_rounded_10"/>-->
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminateDrawable="@drawable/custom_progress_bar"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 

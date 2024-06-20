@@ -45,8 +45,9 @@ interface ApiService {
         @Part("username") username: RequestBody,
         @Part("email") email: RequestBody,
         @Part("jeniskelamin") jeniskelamin: RequestBody,
-        @Part("DataGambar") DataGambar: RequestBody?
+        @Part photo: MultipartBody.Part?  // Change DataGambar to MultipartBody.Part?
     ): EditProfileResponse
+
 
     @Multipart
     @POST("api/soal")
