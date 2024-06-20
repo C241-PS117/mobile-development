@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -181,13 +182,19 @@ class ScanActivity : AppCompatActivity() {
     }
 
     private fun handlePredictResponse(response: PredictResponse) {
-        binding.etDescription.setText(response.jawaban)
+        binding.etDescription.setText(response.hasilOcr)
         Toast.makeText(this, "Total Nilai Jawaban: ${response.totalNilaiJawaban}", Toast.LENGTH_SHORT).show()
 
-        // Start ResultActivity and pass the total score and question ID
-        val intent = Intent(this@ScanActivity, ResultActivity::class.java)
-        intent.putExtra("TOTAL_NILAI_JAWABAN", response.totalNilaiJawaban)
-        intent.putExtra("QUESTION_ID", currentQuestionId) // Pass the current question ID
+        // Log untuk memastikan nilai dikirim dengan benar
+        Log.d("ScanActivity", "Total Nilai Jawaban dikirim: ${response.totalNilaiJawaban}")
+
+        // Start ResultActivity dan kirim total score dan question ID
+        val intent = Intent(this@ScanActivity, ResultActivity::class.java).apply {
+            putExtra("TOTAL_NILAI_JAWABAN", response.totalNilaiJawaban)
+            putExtra("QUESTION_ID", currentQuestionId)
+        }
         startActivity(intent)
     }
+
+
 }
