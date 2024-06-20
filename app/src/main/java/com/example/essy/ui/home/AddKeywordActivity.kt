@@ -46,7 +46,7 @@ class AddKeywordActivity : AppCompatActivity() {
             val jawaban = binding.etDescription.text.toString().trim()
 
             if (soal.isEmpty() || jawaban.isEmpty()) {
-                Toast.makeText(this, "Silakan isi semua kolom", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             } else {
                 tambahSoal(soal, jawaban)
             }
@@ -60,12 +60,18 @@ class AddKeywordActivity : AppCompatActivity() {
             val soalBody = soal.toRequestBody("text/plain".toMediaTypeOrNull())
             val jawabanBody = jawaban.toRequestBody("text/plain".toMediaTypeOrNull())
 
+            // Tampilkan ProgressBar saat memulai pengiriman data
+            binding.progressBar.visibility = android.view.View.VISIBLE
+
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val response = ApiConfig.getApiService().tambahSoal(idGuruBody, soalBody, jawabanBody)
                     withContext(Dispatchers.Main) {
-                        if (response != null && response.message == "Soal dan jawaban berhasil ditambahkan") {
-                            Toast.makeText(this@AddKeywordActivity, "Soal dan jawaban berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                        // Sembunyikan ProgressBar setelah selesai mengirim data
+                        binding.progressBar.visibility = android.view.View.GONE
+
+                        if (response != null && response.message == "Data added successfully") {
+                            Toast.makeText(this@AddKeywordActivity, "Soal dan Jawaban berhasil disimpan", Toast.LENGTH_SHORT).show()
                             val i = Intent(this@AddKeywordActivity, MainActivity::class.java)
                             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(i)
@@ -77,12 +83,15 @@ class AddKeywordActivity : AppCompatActivity() {
                 } catch (e: Exception) {
                     Log.e("AddKeywordActivity", "Error: ${e.message}", e)
                     withContext(Dispatchers.Main) {
+                        // Sembunyikan ProgressBar setelah selesai mengirim data
+                        binding.progressBar.visibility = android.view.View.GONE
+
                         Toast.makeText(this@AddKeywordActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         } else {
-            Toast.makeText(this, "ID pengguna tidak ditemukan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
         }
     }
 

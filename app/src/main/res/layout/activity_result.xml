@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.ResultActivity"
+    android:background="@drawable/blur_bg"
     >
 
     <ImageView
@@ -71,6 +72,15 @@
         app:backgroundTint="@color/purple"
         android:background="@drawable/shape_rounded_10"
         android:layout_below="@+id/layout_etUsername"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/custom_progress_bar"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

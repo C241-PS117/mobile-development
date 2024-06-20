@@ -15,90 +15,107 @@
             android:id="@+id/custom_toolbar"
             layout="@layout/custom_toolbar"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/custom_toolbar"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="40dp"
-            android:orientation="vertical"
-            >
+            android:layout_below="@id/custom_toolbar">
 
-            <TextView
-                android:id="@+id/txt_keywoard1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Masukkan Soal"
-                android:fontFamily="@font/poppinssemibold"
-                android:textSize="13sp"
-                android:textColor="@color/black"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_etUsername"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical"
                 >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_username"
+                <TextView
+                    android:id="@+id/txt_keywoard1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masukkan Soal"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textSize="13sp"
+                    android:textColor="@color/black"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layout_etUsername"
                     android:layout_width="match_parent"
-                    android:layout_height="57dp"
-                    android:layout_below="@id/layout_start_text2"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="false"
+                    android:layout_marginTop="10dp"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="57dp"
+                        android:layout_below="@id/layout_start_text2"
+                        android:background="@drawable/shape_rounded_10"
+                        android:drawableStart="@drawable/ic_soal"
+                        android:paddingStart="20dp"
+                        android:drawablePadding="15dp"
+                        android:textSize="12sp"
+                        android:hint="Soal"
+                        android:textColor="@color/black"
+                        app:backgroundTint="@color/white"
+                        android:fontFamily="@font/poppinsregular"
+                        android:ems="10"
+                        android:inputType="text"
+                        tools:ignore="SpeakableTextPresentCheck"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txt_keywoard2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Masukkan Jawaban"
+                    android:fontFamily="@font/poppinssemibold"
+                    android:textSize="13sp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="start|top"
+                    android:padding="10dp"
                     android:background="@drawable/shape_rounded_10"
-                    android:drawableStart="@drawable/ic_soal"
-                    android:paddingStart="20dp"
-                    android:drawablePadding="15dp"
-                    android:textSize="12sp"
-                    android:hint="Soal"
-                    android:textColor="@color/black"
-                    app:backgroundTint="@color/white"
+                    android:backgroundTint="@color/white"
                     android:fontFamily="@font/poppinsregular"
-                    android:ems="10"
-                    android:inputType="text"
-                    tools:ignore="SpeakableTextPresentCheck"
+                    android:textSize="15sp"
+                    android:hint="Tulis jawaban anda disini"/>
+
+
+                <Button
+                    android:id="@+id/btnSimpan"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Simpan"
+                    android:fontFamily="@font/poppinssemibold"
+                    app:backgroundTint="@color/purple"
+                    android:background="@drawable/shape_rounded_10"
                     />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_keywoard2"
+            <ProgressBar
+                android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Masukkan Jawaban"
-                android:fontFamily="@font/poppinssemibold"
-                android:textSize="13sp"
-                android:layout_marginTop="15dp"
-                android:textColor="@color/black"/>
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/custom_progress_bar"
+                android:visibility="gone"
+                />
 
-            <EditText
-                android:id="@+id/et_description"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-                android:gravity="start|top"
-                android:padding="10dp"
-                android:background="@drawable/shape_rounded_10"
-                android:backgroundTint="@color/white"
-                android:fontFamily="@font/poppinsregular"
-                android:textSize="15sp"
-                android:hint="Tulis jawaban anda disini"/>
-
-
-            <Button
-                android:id="@+id/btnSimpan"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="40dp"
-                android:layout_centerHorizontal="true"
-                android:text="Simpan"
-                android:fontFamily="@font/poppinssemibold"
-                app:backgroundTint="@color/purple"
-                android:background="@drawable/shape_rounded_10"/>
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
