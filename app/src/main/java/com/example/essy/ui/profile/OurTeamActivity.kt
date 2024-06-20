@@ -37,52 +37,52 @@ class OurTeamActivity : AppCompatActivity() {
         return listOf(
             TeamMember(
                 "Krisna Choiril Andika",
-                "khrisnandika15@gmail.com",
+                "Mobile Development",
                 R.drawable.team_krisna,
                 "https://linkedin.com/in/khrisnandika",
                 "https://instagram.com/khrisnandika"
             ),
             TeamMember(
                 "Indra Prasetyo Wijaya ",
-                "indrapras2002@gmail.com",
+                "Mobile Development",
                 R.drawable.team_indra,
-                "https://www.linkedin.com/in/indra-prasetyo-wijaya/",
+                "https://linkedin.com/in/indra-prasetyo-wijaya",
                 "https://instagram.com/indrapraass"
             ),
             TeamMember(
                 "Melanie Sayyidina Sabrina Refman",
-                "melanie@gmail.com",
-                R.drawable.team_krisna,
-                "https://linkedin.com/in/khrisnandika",
-                "https://instagram.com/khrisnandika"
+                "Machine Learning",
+                R.drawable.team_melanie,
+                "https://linkedin.com/in/melanierefman",
+                "https://instagram.com/melanierefman"
             ),
             TeamMember(
                 "Yusna Millaturrosyidah",
-                "yusna@gmail.com",
-                R.drawable.team_krisna,
-                "https://linkedin.com/in/khrisnandika",
-                "https://instagram.com/khrisnandika"
+                "Machine Learning",
+                R.drawable.team_yusni,
+                "https://linkedin.com/in/yusnamillaturrosyidah",
+                "https://instagram.com/_yusnaa_"
             ),
             TeamMember(
-                "Tsabita Putri Ramadhan",
-                "tsabita@gmail.com",
-                R.drawable.team_krisna,
-                "https://linkedin.com/in/khrisnandika",
-                "https://instagram.com/khrisnandika"
+                "Tsabita Putri Ramadhany",
+                "Machine Learning",
+                R.drawable.team_tsabiti,
+                "https://linkedin.com/in/tsabita-putri-ramadhany",
+                "https://instagram.com/tsabitaaptr"
             ),
             TeamMember(
                 "Moch.Rikza Lucky Ardiansyah",
-                "lucky@gmail.com",
-                R.drawable.team_krisna,
-                "https://linkedin.com/in/khrisnandika",
-                "https://instagram.com/khrisnandika"
+                "Cloud Computing",
+                R.drawable.team_lucky,
+                "https://linkedin.com/in/moch-rikza-lucky-ardiansyah-87009b220/",
+                "https://instagram.com/rikzalucky_a"
             ),
             TeamMember(
                 "Muhammad Daffa Naufal Muzaki ",
-                "dafa@gmail.com",
-                R.drawable.team_krisna,
-                "https://linkedin.com/in/khrisnandika",
-                "https://instagram.com/khrisnandika"
+                "Cloud Computing",
+                R.drawable.team_daffa,
+                "https://linkedin.com/in/muhammad-daffa-naufal-muzaki-b70592293?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+                "https://instagram.com/problemacy"
             ),
         )
     }
