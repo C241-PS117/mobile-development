@@ -32,18 +32,21 @@ class ResultActivity : AppCompatActivity() {
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
 
-        // Get total score from intent
+        // Terima total score dari intent
         val totalNilaiJawaban = intent.getIntExtra("TOTAL_NILAI_JAWABAN", 0)
+        Log.d("ResultActivity", "Total Nilai Jawaban diterima: $totalNilaiJawaban")
         binding.countScore.text = totalNilaiJawaban.toString()
 
-        // Get question ID from intent
+        // Terima question ID dari intent
         val idSoal = intent.getIntExtra("QUESTION_ID", 0)
 
         binding.btnSimpan.setOnClickListener {
-            // Save data to API when save button is clicked
+            // Save data ke API ketika tombol simpan di klik
             saveData(idSoal, totalNilaiJawaban)
         }
     }
+
+
 
     private fun saveData(idSoal: Int, totalNilaiJawaban: Int) {
         val nama = binding.etUsername.text.toString().trim() // Get value from EditText
