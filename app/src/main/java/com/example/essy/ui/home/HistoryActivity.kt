@@ -43,7 +43,7 @@ class HistoryActivity : AppCompatActivity() {
         if (idGuru != null) {
             loadNilai(idGuru)
         } else {
-            Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "ID pengguna tidak ditemukan", Toast.LENGTH_SHORT).show()
         }
     }
 

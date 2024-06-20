@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -39,29 +38,19 @@ class ScanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScanBinding
     private var imageFile: File? = null
+    private lateinit var photoFile: File
     private var currentQuestionId: Int = 0 // Variable to hold the current question ID
 
-    private val startForResultGallery =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val selectedImage: Uri? = result.data?.data
-                selectedImage?.let {
-                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
-                    val cursor = contentResolver.query(it, filePathColumn, null, null, null)
-                    cursor?.moveToFirst()
-                    val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
-                    val imagePath = cursor?.getString(columnIndex ?: 0)
-                    cursor?.close()
-
-                    imagePath?.let { path ->
-                        imageFile = File(path)
-                        binding.imageView.load(imageFile) {
-                            transformations(CircleCropTransformation())
-                        }
-                    }
-                }
+    private val startForResultGallery = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data: Intent? = result.data
+            val selectedImage: Uri? = data?.data
+            selectedImage?.let {
+                binding.imageView.setImageURI(it)
+                photoFile = uriToFile(it)
             }
         }
+    }
 
     private val startForResultCamera =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -73,6 +62,7 @@ class ScanActivity : AppCompatActivity() {
                 }
             }
         }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,22 +93,25 @@ class ScanActivity : AppCompatActivity() {
         }
 
         binding.btnGallery.setOnClickListener {
-            dispatchPickImageIntent()
+            val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startForResultGallery.launch(galleryIntent)
         }
 
         binding.btnUpload.setOnClickListener {
-            imageFile?.let { file ->
-                val imagePart = prepareImagePart(file)
+            if (this::photoFile.isInitialized || imageFile != null) {
+                val selectedFile = imageFile ?: photoFile
+                val imagePart = prepareImagePart(selectedFile)
                 val jawaban = binding.etDescription.text.toString().trim()
                 if (jawaban.isNotEmpty()) {
                     predictImage(imagePart, jawaban)
                 } else {
-                    Toast.makeText(this, "Please enter an answer", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Silakan kembali ke menu utama untuk memilih jawaban", Toast.LENGTH_SHORT).show()
                 }
-            } ?: run {
-                Toast.makeText(this, "Please select an image first", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Silakan pilih gambar terlebih dahulu", Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
     private fun hasCameraPermission() = ContextCompat.checkSelfPermission(
@@ -194,6 +187,17 @@ class ScanActivity : AppCompatActivity() {
             putExtra("QUESTION_ID", currentQuestionId)
         }
         startActivity(intent)
+    }
+
+    private fun uriToFile(uri: Uri): File {
+        val contentResolver = contentResolver
+        val myFile = File.createTempFile("temp_image", null, cacheDir)
+        contentResolver.openInputStream(uri)?.use { inputStream ->
+            myFile.outputStream().use { outputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
+        return myFile
     }
 
 

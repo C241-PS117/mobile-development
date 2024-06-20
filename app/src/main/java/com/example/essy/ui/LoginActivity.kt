@@ -40,7 +40,9 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
             val password = binding.etPassword.text.toString().trim()
 
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Silakan isi semua kolom", Toast.LENGTH_SHORT).show()
+            } else if (password.length < 8) {
+                Toast.makeText(this, "Kata sandi harus terdiri dari minimal 8 karakter", Toast.LENGTH_SHORT).show()
             } else {
                 loginViewModel.login(username, password)
             }
@@ -54,9 +56,10 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         loginViewModel.loginResult.observe(this, Observer { result ->
             when (result) {
                 is ResultData.Loading -> {
-                    // Show loading indicator
+                    showLoading(true)
                 }
                 is ResultData.Success -> {
+                    showLoading(false)
                     val response = result.data
                     if (!response.error) {
                         saveUserCredentials(
@@ -68,12 +71,18 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
                         )
                         goToMainActivity()
                     } else {
-                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                        // Handle specific error messages
+                        if (response.message == "Invalid username or password") {
+                            Toast.makeText(this, "Nama pengguna atau kata sandi salah", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Gagal masuk. ${response.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
                 is ResultData.Error -> {
+                    showLoading(false)
                     Log.e("LoginError", result.exception.message.toString())
-                    Toast.makeText(this, "Login failed. Please try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Gagal masuk. ${result.exception.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -164,5 +173,13 @@ class LoginActivity : AppCompatActivity(), View.OnFocusChangeListener, View.OnKe
         }
 
         return errorMessage == null
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
     }
 }

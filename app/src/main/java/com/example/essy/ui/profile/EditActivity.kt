@@ -68,7 +68,7 @@ class EditActivity : AppCompatActivity() {
                 val response = ApiConfig.getApiService().editprofil(idBody, usernameBody, emailBody, jenisKelaminBody, profileImageBody)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@EditActivity, response.message, Toast.LENGTH_SHORT).show()
-                    if (response.message == "Profile updated successfully") {
+                    if (response.message == "Profil berhasil diperbarui") {
                         saveUserDataToPreferences(username, email, jenisKelamin, profileImageUrl ?: "")
                         setResult(Activity.RESULT_OK) // Set result untuk menandakan berhasil
                         finish() // Kembali ke halaman sebelumnya

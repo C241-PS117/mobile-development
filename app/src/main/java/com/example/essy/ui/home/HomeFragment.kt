@@ -78,8 +78,8 @@ class HomeFragment : Fragment() {
                 }
                 is ResultData.Error -> {
                     binding.swipeRefreshLayout.isRefreshing = false
-                    Toast.makeText(requireContext(), "Failed to fetch questions", Toast.LENGTH_SHORT).show()
-                    Log.e("HomeFragment", "Error fetching questions", result.exception)
+                    Toast.makeText(requireContext(), "Gagal mengambil daftar soal", Toast.LENGTH_SHORT).show()
+                    Log.e("HomeFragment", "Terjadi kesalahan saat mengambil daftar soal", result.exception)
                 }
             }
         })

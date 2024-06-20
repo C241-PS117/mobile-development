@@ -39,14 +39,14 @@ class AddKeywordActivity : AppCompatActivity() {
         binding.customToolbar.btnBack.setOnClickListener {
             finish()
         }
-        binding.customToolbar.txtTitle.text = "Tambah Soal dan Keyword"
+        binding.customToolbar.txtTitle.text = "Tambah Soal dan Jawaban"
 
         binding.btnSimpan.setOnClickListener {
             val soal = binding.etUsername.text.toString().trim()
             val jawaban = binding.etDescription.text.toString().trim()
 
             if (soal.isEmpty() || jawaban.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Silakan isi semua kolom", Toast.LENGTH_SHORT).show()
             } else {
                 tambahSoal(soal, jawaban)
             }
@@ -64,8 +64,8 @@ class AddKeywordActivity : AppCompatActivity() {
                 try {
                     val response = ApiConfig.getApiService().tambahSoal(idGuruBody, soalBody, jawabanBody)
                     withContext(Dispatchers.Main) {
-                        if (response != null && response.message == "Data added successfully") {
-                            Toast.makeText(this@AddKeywordActivity, "Data berhasil disimpan", Toast.LENGTH_SHORT).show()
+                        if (response != null && response.message == "Soal dan jawaban berhasil ditambahkan") {
+                            Toast.makeText(this@AddKeywordActivity, "Soal dan jawaban berhasil ditambahkan", Toast.LENGTH_SHORT).show()
                             val i = Intent(this@AddKeywordActivity, MainActivity::class.java)
                             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(i)
@@ -82,7 +82,7 @@ class AddKeywordActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "ID pengguna tidak ditemukan", Toast.LENGTH_SHORT).show()
         }
     }
 
