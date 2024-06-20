@@ -158,8 +158,17 @@
                 android:fontFamily="@font/poppinssemibold"
                 android:textSize="15sp"/>
 
-
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="16dp"
+            android:indeterminateDrawable="@drawable/custom_progress_bar"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 

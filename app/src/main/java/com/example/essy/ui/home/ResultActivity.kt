@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.essy.data.network.ApiConfig
 import com.example.essy.databinding.ActivityResultBinding
@@ -25,7 +24,6 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityResultBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -46,8 +44,6 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun saveData(idSoal: Int, totalNilaiJawaban: Int) {
         val nama = binding.etUsername.text.toString().trim() // Get value from EditText
         val idGuru = sharedPreferences.getString("user_id", null) // Get teacher ID from SharedPreferences
@@ -57,6 +53,9 @@ class ResultActivity : AppCompatActivity() {
             Toast.makeText(this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show()
             return
         }
+
+        // Show ProgressBar
+        binding.progressBar.visibility = android.view.View.VISIBLE
 
         // Call API to save data
         CoroutineScope(Dispatchers.IO).launch {
@@ -68,6 +67,8 @@ class ResultActivity : AppCompatActivity() {
                     totalNilaiJawaban.toString().toRequestBody("text/plain".toMediaTypeOrNull())
                 )
                 withContext(Dispatchers.Main) {
+                    // Hide ProgressBar
+                    binding.progressBar.visibility = android.view.View.GONE
                     if (response.message == "Data added successfully") {
                         Toast.makeText(this@ResultActivity, "Data berhasil disimpan", Toast.LENGTH_SHORT).show()
                         val i = Intent(this@ResultActivity, MainActivity::class.java)
@@ -80,6 +81,8 @@ class ResultActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("ResultActivity", "Error: ${e.message}", e)
                 withContext(Dispatchers.Main) {
+                    // Hide ProgressBar on error
+                    binding.progressBar.visibility = android.view.View.GONE
                     Toast.makeText(this@ResultActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -44,15 +44,15 @@ class PasswordActivity : AppCompatActivity() {
             val confirmPassword = binding.etKonfirmasiPasswordBaru.text.toString().trim()
 
             if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Silakan isi semua kolom", Toast.LENGTH_SHORT).show()
             } else if (newPassword != confirmPassword) {
-                Toast.makeText(this, "New Password and Confirm Password do not match", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Kata Sandi Baru dan Konfirmasi Kata Sandi tidak cocok", Toast.LENGTH_SHORT).show()
             } else {
                 val userId = sharedPreferences.getString("user_id", null)?.toIntOrNull()
                 if (userId != null) {
                     ubahPassword(userId, oldPassword, newPassword)
                 } else {
-                    Toast.makeText(this, "User ID not found", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "ID pengguna tidak ditemukan", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -67,10 +67,10 @@ class PasswordActivity : AppCompatActivity() {
             val response = ApiConfig.getApiService().ubahPassword(idBody, oldPasswordBody, newPasswordBody)
             withContext(Dispatchers.Main) {
                 Toast.makeText(this@PasswordActivity, response.message, Toast.LENGTH_SHORT).show()
-                if (response.message == "Password updated successfully") {
+                if (response.message == "Kata sandi berhasil diperbarui") {
                     finish()
                 } else {
-                    Toast.makeText(this@PasswordActivity, "Failed to update password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@PasswordActivity, "Gagal memperbarui kata sandi", Toast.LENGTH_SHORT).show()
                 }
             }
         }

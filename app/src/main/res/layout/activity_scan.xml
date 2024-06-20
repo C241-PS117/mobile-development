@@ -109,7 +109,9 @@
             android:layout_below="@id/layout_button"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:visibility="gone" />
+            android:indeterminateDrawable="@drawable/custom_progress_bar"
+            android:visibility="gone"
+            />
 
     </RelativeLayout>
 
