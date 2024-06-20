@@ -64,7 +64,7 @@ class OurTeamActivity : AppCompatActivity() {
                 "https://instagram.com/_yusnaa_"
             ),
             TeamMember(
-                "Tsabita Putri Ramadhan",
+                "Tsabita Putri Ramadhany",
                 "Machine Learning",
                 R.drawable.team_tsabiti,
                 "https://linkedin.com/in/tsabita-putri-ramadhany",
