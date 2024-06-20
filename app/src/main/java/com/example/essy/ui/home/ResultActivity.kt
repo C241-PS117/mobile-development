@@ -60,7 +60,7 @@ class ResultActivity : AppCompatActivity() {
             try {
                 val response = ApiConfig.getApiService().tambahNilai(
                     idSoal.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
-                    idGuru!!.toRequestBody("text/plain".toMediaTypeOrNull()), // !! operator to indicate that idGuru is not null
+                    idGuru.toRequestBody("text/plain".toMediaTypeOrNull()), // !! operator to indicate that idGuru is not null
                     nama.toRequestBody("text/plain".toMediaTypeOrNull()),
                     totalNilaiJawaban.toString().toRequestBody("text/plain".toMediaTypeOrNull())
                 )

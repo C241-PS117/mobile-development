@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,7 +59,7 @@ class HistoryActivity : AppCompatActivity() {
     private fun loadNilai(idGuru: Int) {
         val apiService = ApiConfig.getApiService()
 
-        val idGuruRequestBody = RequestBody.create(okhttp3.MultipartBody.FORM, idGuru.toString())
+        val idGuruRequestBody = idGuru.toString().toRequestBody(okhttp3.MultipartBody.FORM)
 
         // Start a coroutine to make the network request
         CoroutineScope(Dispatchers.IO).launch {
